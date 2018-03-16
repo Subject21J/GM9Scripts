@@ -1,0 +1,85 @@
+# Dump Pokemon VC ROM for PAL RBY
+# Author: Subject21J
+# credits:
+# Zaksabeast -For createVCLayeredFS.gm9 that was used as a refrence point
+# d0k3 - for GM9 and script references
+# Shiny_Sylveon for information gathering.
+
+set ERRORMSG "Something went wrong, contact the author!"
+
+# Game select
+echo "scroll up or down to select game. \nIT and FR RED don't work!"
+input "Enter the number for the game you want to dump\nGR - 0: Rote, 1: Blaue, 2: Gelbe, \nFR - 3: Bleue, 4: Jaune, \nSP - 5: Roja, 6: Azul, 7: Amarilla, \nIT - 8: Blu, 9: Gialla" GAME
+
+# Set info
+if chk $[GAME] "0"
+set GAMENAME "Rote"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171300"
+set ROMNAME "Dmgapad0.h35"
+
+elif chk $[GAME] "1"
+set GAMENAME "Blaue"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171400"
+set ROMNAME "Dmgaped0.h36"
+
+elif chk $[GAME] "2"
+set GAMENAME "Gelbe"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00171500"
+set ROMNAME "DMGAPSD0.J15"
+
+elif chk $[GAME] "3"
+set GAMENAME "Bleue"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171700"
+set ROMNAME "Dmgapef0.h31"
+
+elif chk $[GAME] "4"
+set GAMENAME "Jaune"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00171800"
+set ROMNAME "DMGAPSF0.J16"
+
+elif chk $[GAME] "5"
+set GAMENAME "Roja"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171900"
+set ROMNAME "Dmgapas0.h50"
+
+elif chk $[GAME] "6"
+set GAMENAME "Azul"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171A00"
+set ROMNAME "Dmgapes0.h51"
+
+elif chk $[GAME] "7"
+set GAMENAME "Amarilla"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00171B00"
+set ROMNAME "DMGAPSS0.J17"
+
+elif chk $[GAME] "8"
+set GAMENAME "Blu"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171D00"
+set ROMNAME "Dmgapei0.i60"
+
+elif chk $[GAME] "9"
+set GAMENAME "Gialla"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00171E00"
+set ROMNAME "DMGAPSI0.J19"
+
+end
+
+# Mount ncch image
+find A:/title/00040000/$[TITLE]/content/$[ROMFSPATHFOLDER].app APP
+imgmount $[APP]
+ 
+# Copy rom to sd
+find G:/romfs/rom/$[ROMNAME] ROM
+cp -w $[ROM] $[GM9OUT]/$[GAMENAME].gb
+
+echo "Rom has been dumped to \n$[GM9OUT]/$[GAMENAME].gb"

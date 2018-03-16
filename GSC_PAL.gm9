@@ -1,0 +1,97 @@
+# Dump Pokemon VC ROM for PAL RBY
+# Author: Subject21J
+# credits:
+# Zaksabeast -For createVCLayeredFS.gm9 that was used as a refrence point
+# D0k3 - for GM9 and script references
+# Shiny_Sylveon for information gathering on the RBY_PAL script.
+
+set ERRORMSG "Something went wrong, contact the author!"
+
+# Game select
+echo "scroll up or down to select game"
+input "Enter the letter for the game you want to dump\nGR - A: Goldene, B: Silberne, C: Kristall, \nFR - D: Or, E: Argent, F: Cristal, \nSP - G: Oro, H: Plata, I: Cristal, \nIT - J: Oro, K: Argento, L: Cristallo" GAME
+
+# Set info
+if chk $[GAME] "A"
+set GAMENAME "Goldene"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172900"
+set ROMNAME "DMGAAUD0.K00"
+
+elif chk $[GAME] "B"
+set GAMENAME "Silberne"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172A00"
+set ROMNAME "DMGAAXD0.K01"
+
+elif chk $[GAME] "C"
+set GAMENAME "Kristall"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00172B00"
+set ROMNAME "CGBBYTD0.837"
+
+elif chk $[GAME] "D"
+set GAMENAME "Or"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172C00"
+set ROMNAME "DMGAAUF0.J95"
+
+elif chk $[GAME] "E"
+set GAMENAME "Argent"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172D00"
+set ROMNAME "DMGAAXF0.J96"
+
+elif chk $[GAME] "F"
+set GAMENAME "Cristal"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00172E00"
+set ROMNAME "CGBBYTF0.849"
+
+elif chk $[GAME] "G"
+set GAMENAME "Oro"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172F00"
+set ROMNAME "DMGAAUS0.K09"
+
+elif chk $[GAME] "H"
+set GAMENAME "Plata"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00173000"
+set ROMNAME "DMGAAXS0.K10"
+
+elif chk $[GAME] "I"
+set GAMENAME "Cristal"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00173100"
+set ROMNAME "CGBBYTS0.860"
+
+elif chk $[GAME] "J"
+set GAMENAME "Oro"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00173200"
+set ROMNAME "DMGAAI0.K07"
+
+elif chk $[GAME] "K"
+set GAMENAME "Argento"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00173300"
+set ROMNAME "DMGAAXI0.K08"
+
+elif chk $[GAME] "L"
+set GAMENAME "Cristallo"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00173400"
+set ROMNAME "CGBBYTI0.878"
+
+end
+
+# Mount ncch image
+find A:/title/00040000/$[TITLE]/content/$[ROMFSPATHFOLDER].app APP
+imgmount $[APP]
+ 
+# Copy rom to sd
+find G:/romfs/rom/$[ROMNAME] ROM
+cp -w $[ROM] $[GM9OUT]/$[GAMENAME].gbc
+
+echo "Rom has been dumped to \n$[GM9OUT]/$[GAMENAME].gbc"

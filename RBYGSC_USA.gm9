@@ -1,0 +1,62 @@
+# Dump Pokemon VC ROM for RBY and GSC USA
+# Author: Subject21J
+# credits:
+# Zaksabeast -For createVCLayeredFS.gm9 that was used as a refrence point
+# D0k3 - for GM9 and script references
+# Shiny_Sylveon for information gathering on the PAL script.
+
+set ERRORMSG "Something went wrong, contact the author"
+
+# Game select
+
+echo "scroll up or down to select game"
+input "Enter the number for the game you want to dump\n(1: RED, 2: BLUE, 3: YELLOW, \n4: GOLD, 5: SILVER 6: CRSYTAL)" GAME
+
+# Set info
+if chk $[GAME] "1"
+set GAMENAME "RED"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171000"
+set ROMNAME "Dmgapae0.e69"
+
+elif chk $[GAME] "2"
+set GAMENAME "BLUE"
+set ROMFSPATHFOLDER "00000003"
+set TITLE "00171100"
+set ROMNAME "Dmgapee0.e68"
+
+elif chk $[GAME] "3"
+set GAMENAME "YELLOW"
+set ROMFSPATHFOLDER "00000005"
+set TITLE "00171200"
+set ROMNAME "Dmgapse0.h08"
+
+elif chk $[GAME] "4"
+set GAMENAME "GOLD"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172600"
+set ROMNAME "DMGAAUP0.J56"
+
+elif chk $[GAME] "5"
+set GAMENAME "SILVER"
+set ROMFSPATHFOLDER "00000000"
+set TITLE "00172700"
+set ROMNAME "DMGAAXP0.J57"
+
+elif chk $[GAME] "6"
+set GAMENAME "CRSYTAL"
+set ROMFSPATHFOLDER "00000002"
+set TITLE "00172800"
+set ROMNAME "CGBBYTE1.784"
+
+end
+
+# Mount ncch image
+find A:/title/00040000/$[TITLE]/content/$[ROMFSPATHFOLDER].app APP
+imgmount $[APP]
+ 
+# Copy rom to sd
+find G:/romfs/rom/$[ROMNAME] ROM
+cp -w $[ROM] $[GM9OUT]/$[GAMENAME].gb
+
+echo "Rom has been dumped to \n$[GM9OUT]/$[GAMENAME].gb"
