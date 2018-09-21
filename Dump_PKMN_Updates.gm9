@@ -13,7 +13,7 @@ if chk $[GAME] "1"
 set GAMENAME "Pokemon_X_Update"
 set TITLE "00055D00"
 
-elif chk $[GAME] "2"
+elif chk $[GAME] "3"
 set GAMENAME "Pokemon_Y_Update"
 set TITLE "00055E00"
 
